@@ -1,0 +1,11 @@
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/bin/Debug/net8.0/SCMS.DomainEntities.deps.json
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/bin/Debug/net8.0/SCMS.DomainEntities.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/bin/Debug/net8.0/SCMS.DomainEntities.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.AssemblyInfoInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.AssemblyInfo.cs
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.csproj.CoreCompileInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/refint/SCMS.DomainEntities.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/SCMS.DomainEntities.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/Debug/net8.0/ref/SCMS.DomainEntities.dll

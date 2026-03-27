@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "xcWx+YjhTQJwELW9whFBe5o4xXZDumjQ6bbBIZWutfE=",
+  "Source": "SCMS.WebAPI",
+  "BasePath": "_content/SCMS.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

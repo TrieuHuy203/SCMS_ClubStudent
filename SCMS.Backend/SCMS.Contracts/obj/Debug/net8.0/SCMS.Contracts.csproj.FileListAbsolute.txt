@@ -1,0 +1,15 @@
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/bin/Debug/net8.0/SCMS.Contracts.deps.json
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/bin/Debug/net8.0/SCMS.Contracts.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/bin/Debug/net8.0/SCMS.Contracts.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.AssemblyInfoInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.AssemblyInfo.cs
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.csproj.CoreCompileInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/refint/SCMS.Contracts.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/ref/SCMS.Contracts.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Contracts.csproj.AssemblyReference.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/bin/Debug/net8.0/SCMS.DomainEntities.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/bin/Debug/net8.0/SCMS.DomainEntities.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/Debug/net8.0/SCMS.Con.B4790923.Up2Date

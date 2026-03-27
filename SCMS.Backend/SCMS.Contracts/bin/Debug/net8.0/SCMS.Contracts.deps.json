@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SCMS.Contracts/1.0.0": {
+        "dependencies": {
+          "SCMS.DomainEntities": "1.0.0"
+        },
+        "runtime": {
+          "SCMS.Contracts.dll": {}
+        }
+      },
+      "SCMS.DomainEntities/1.0.0": {
+        "runtime": {
+          "SCMS.DomainEntities.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SCMS.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SCMS.DomainEntities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

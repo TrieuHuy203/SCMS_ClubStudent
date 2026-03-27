@@ -1,0 +1,363 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/SCMS.WebAPI.csproj": {}
+  },
+  "projects": {
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/SCMS.BusinessService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/SCMS.BusinessService.csproj",
+        "projectName": "SCMS.BusinessService",
+        "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/SCMS.BusinessService.csproj",
+        "packagesPath": "/Users/luongtrieu/.nuget/packages/",
+        "outputPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/luongtrieu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj"
+              },
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/SCMS.DAL.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/SCMS.DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.15.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj",
+        "projectName": "SCMS.Contracts",
+        "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj",
+        "packagesPath": "/Users/luongtrieu/.nuget/packages/",
+        "outputPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/luongtrieu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/SCMS.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/SCMS.DAL.csproj",
+        "projectName": "SCMS.DAL",
+        "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/SCMS.DAL.csproj",
+        "packagesPath": "/Users/luongtrieu/.nuget/packages/",
+        "outputPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DAL/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/luongtrieu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj"
+              },
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj",
+        "projectName": "SCMS.DomainEntities",
+        "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/SCMS.DomainEntities.csproj",
+        "packagesPath": "/Users/luongtrieu/.nuget/packages/",
+        "outputPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.DomainEntities/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/luongtrieu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/SCMS.WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/SCMS.WebAPI.csproj",
+        "projectName": "SCMS.WebAPI",
+        "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/SCMS.WebAPI.csproj",
+        "packagesPath": "/Users/luongtrieu/.nuget/packages/",
+        "outputPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/luongtrieu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/SCMS.BusinessService.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.BusinessService/SCMS.BusinessService.csproj"
+              },
+              "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj": {
+                "projectPath": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Contracts/SCMS.Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.413/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
