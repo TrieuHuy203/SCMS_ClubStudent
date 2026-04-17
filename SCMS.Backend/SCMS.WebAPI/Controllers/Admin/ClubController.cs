@@ -33,7 +33,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         /// <summary>
-        /// Lấy thông tin club theo Id
+        /// Lấy thông tin club theo Id (xem chi tiết thông tin club)
         /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<ClubResponse>> GetClubById(int id)
@@ -47,9 +47,14 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Tạo mới một club
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<ClubResponse>> CreateClub([FromBody] ClubCreateRequest request)
+        public async Task<IActionResult> CreateClub([FromBody] ClubCreateRequest request)
         {
-            var created = await _clubService.CreateClubAsync(request);
+            if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+            {
+                return unauthorizedResult!;
+            }
+
+            var created = await _clubService.CreateClubAsync(request, adminId);
             return CreatedAtAction(nameof(GetClubById), new { id = created.ClubId }, new {
                 message = "Tạo club thành công",
                 data = created
@@ -63,7 +68,13 @@ namespace SCMS.WebAPI.Controllers.Admin
         public async Task<IActionResult> UpdateClub(int id, [FromBody] ClubUpdateRequest request)
         {
             if (id != request.ClubId) return BadRequest("Id không khớp với ClubId trong request");
-            await _clubService.UpdateClubAsync(request);
+
+            if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+            {
+                return unauthorizedResult!;
+            }
+
+            await _clubService.UpdateClubAsync(request, adminId);
             return Ok(new { message = "Cập nhật club thành công" });
         }
 
@@ -73,8 +84,41 @@ namespace SCMS.WebAPI.Controllers.Admin
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClub(int id)
         {
-            await _clubService.DeleteClubAsync(id);
-            return NoContent();
+            if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+            {
+                return unauthorizedResult!;
+            }
+
+            await _clubService.DeleteClubAsync(id, adminId);
+            return Ok(new { message = "Xóa mềm câu lạc bộ thành công" });
+        }
+
+        /// <summary>
+        /// Bật/tắt hoạt động club
+        /// </summary>
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> SetClubStatus(int id, [FromQuery] bool isDisabled)
+        {
+            try
+            {
+                if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+                {
+                    return unauthorizedResult!;
+                }
+
+                var result = await _clubService.SetClubDisabledAsync(id, isDisabled, adminId);
+                if (!result)
+                    return NotFound(new { message = "Không tìm thấy câu lạc bộ" });
+
+                return Ok(new
+                {
+                    message = isDisabled ? "Đã vô hiệu hóa câu lạc bộ" : "Đã mở lại hoạt động câu lạc bộ"
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         // Lấy club theo trang (pagination), trả về danh sách club và tổng số club (để client biết có bao nhiêu trang)
@@ -92,6 +136,88 @@ namespace SCMS.WebAPI.Controllers.Admin
         {
             var result = await _clubService.SearchClubsPagedAsync(request);
             return Ok(result); // Trả về PagedResult<ClubResponse>
+        }
+
+        /// <summary>
+        /// Lấy danh sách club đang chờ duyệt
+        /// </summary>
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetPendingClubs([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _clubService.GetPendingClubsAsync(page, pageSize);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Duyệt yêu cầu tạo club
+        /// </summary>
+        [HttpPost("{id}/approve")]
+        public async Task<IActionResult> ApproveClub(int id)
+        {
+            try
+            {
+                if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+                {
+                    return unauthorizedResult!;
+                }
+
+                var result = await _clubService.ApproveClubAsync(id, adminId);
+                return Ok(new { message = "Duyệt câu lạc bộ thành công", data = result });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Từ chối yêu cầu tạo club
+        /// </summary>
+        [HttpPost("{id}/reject")]
+        public async Task<IActionResult> RejectClub(int id, [FromBody] RejectClubRequest request)
+        {
+            try
+            {
+                if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
+                {
+                    return unauthorizedResult!;
+                }
+
+                // Admin truyền lý do từ chối để user biết cần bổ sung/chỉnh sửa thông tin nào.
+                var result = await _clubService.RejectClubAsync(id, adminId, request.RejectReason);
+                return Ok(new { message = "Từ chối câu lạc bộ thành công", data = result });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        private bool TryGetCurrentUserId(out int userId, out IActionResult? unauthorizedResult)
+        {
+            unauthorizedResult = null;
+            userId = 0;
+
+            var userIdClaim = User.FindFirst("UserId") ?? User.FindFirst("userId");
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out userId))
+            {
+                unauthorizedResult = Unauthorized(new { message = "Không tìm thấy UserId hợp lệ trong token!" });
+                return false;
+            }
+
+            return true;
         }
     }
 }

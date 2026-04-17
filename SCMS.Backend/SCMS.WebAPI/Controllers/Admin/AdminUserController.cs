@@ -47,7 +47,14 @@ namespace SCMS.WebAPI.Controllers.Admin
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateRequest request)
 		{
-			var result = await _userService.UpdateUserAsync(id, request);
+			// Lấy actor từ token để audit ghi đúng người thực hiện cập nhật.
+			var userIdClaim = User.FindFirst("UserId") ?? User.FindFirst("userId");
+			if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var currentUserId))
+			{
+				return Unauthorized("Không tìm thấy UserId hợp lệ trong token!");
+			}
+
+			var result = await _userService.UpdateUserAsync(id, currentUserId, request);
 			if (!string.IsNullOrEmpty(result.Message) && result.Message != "Cập nhật user thành công")
 			{
 				// Trả về lỗi nếu có message lỗi
@@ -80,7 +87,14 @@ namespace SCMS.WebAPI.Controllers.Admin
 		[HttpPatch("{id}/status")]
 		public async Task<IActionResult> SetUserStatus(int id, [FromQuery] bool isDisabled)
 		{
-			int currentUserId = int.Parse(User.FindFirst("userId").Value);
+			// Sửa lỗi: claim trong token là "UserId" (chữ U hoa), nếu dùng "userId" sẽ bị null
+			var userIdClaim = User.FindFirst("UserId");
+			if (userIdClaim == null)
+			{
+				// Nếu không tìm thấy claim, trả về lỗi xác thực
+				return Unauthorized("Không tìm thấy thông tin user trong token!");
+			}
+			int currentUserId = int.Parse(userIdClaim.Value);
 			var result = await _userService.SetUserDisabledAsync(id, isDisabled, currentUserId);
 			if (!result)
 			{
@@ -89,7 +103,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 				return NotFound("User không tồn tại");
 			}
 			return Ok(isDisabled ? "Đã vô hiệu hoá user" : "Đã mở khoá user");
-		}	
+		}  
 
 
 		// Lấy chi tiết thông tin user theo Id
@@ -109,6 +123,63 @@ public async Task<IActionResult> SearchUsers([FromQuery] UserSearchRequest reque
     var result = await _userService.SearchUsersPagedAsync(request);
     return Ok(result); // Trả về PagedResult<UserDetailResponse>
 }
+
+		// Admin reset mật khẩu cho user
+		[HttpPost("{id}/reset-password")]
+		public async Task<IActionResult> AdminResetPassword(int id, [FromBody] AdminResetPasswordRequest request)
+		{
+			try
+			{
+				var userIdClaim = User.FindFirst("UserId") ?? User.FindFirst("userId");
+				if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var adminId))
+				{
+					return Unauthorized(new { message = "Không tìm thấy UserId hợp lệ trong token!" });
+				}
+
+				var message = await _userService.AdminResetUserPasswordAsync(adminId, id, request);
+				return Ok(new { message });
+			}
+			catch (ArgumentException ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+			catch (InvalidOperationException ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(new { message = ex.Message });
+			}
+		}
 		
+   // Lấy danh sách avatar user
+[HttpGet("avatars")]
+public async Task<IActionResult> GetAllUserAvatars()
+{
+    var result = await _userService.GetAllUserAvatarsAsync();
+    return Ok(result);
+}
+
+// Lấy chi tiết avatar user theo userId
+[HttpGet("{userId}/avatar")]
+public async Task<IActionResult> GetUserAvatar(int userId)
+{
+    var result = await _userService.GetUserAvatarAsync(userId);
+    if (result == null) return NotFound();
+    return Ok(result);
+}
+
+// Xóa avatar user theo userId
+[HttpDelete("{userId}/avatar")]
+public async Task<IActionResult> DeleteUserAvatar(int userId)
+{
+    var success = await _userService.DeleteUserAvatarAsync(userId);
+    if (!success) return NotFound();
+    return Ok(new { message = "Xóa avatar thành công" });
+}
+   
+   
+   
     }
 }

@@ -1,6 +1,6 @@
-@SCMS.WebAPI_HostAddress = http://localhost:5217
+@SCMS_WebAPI_HostAddress = http://localhost:5217
 
-GET {{SCMS.WebAPI_HostAddress}}/weatherforecast/
+GET {{SCMS_WebAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
