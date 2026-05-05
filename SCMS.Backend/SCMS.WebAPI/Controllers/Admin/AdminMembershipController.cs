@@ -3,7 +3,8 @@ using System;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
     [ApiController]
@@ -16,15 +17,17 @@ namespace SCMS.WebAPI.Controllers.Admin
         {
             _service = service;
         }
-// Endpoint lấy danh sách membership với filter và phân trang
+// Endpoint lấy danh sách membership với filter và phân trang   
+        [Permission(AppPermission.Admin_Membership_View_List)]
         [HttpGet("list")]
         public async Task<IActionResult> List([FromQuery] AdminMembershipListRequestDto filter)
         {
             var result = await _service.SearchAsync(filter);
             return Ok(result);
         }
-
+       
         // Endpoint riêng cho admin xem thành viên của một CLB (chỉ lấy status Approved)
+        [Permission(AppPermission.Admin_Membership_View_Club_Members)]
         [HttpGet("clubs/{clubId}/members")]
         public async Task<IActionResult> GetClubMembers(
             int clubId,
@@ -45,6 +48,7 @@ namespace SCMS.WebAPI.Controllers.Admin
             return Ok(result);
         }
 
+        [Permission(AppPermission.Admin_Membership_View_Detail)]
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> Detail(int id)
         {
@@ -54,7 +58,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
 // Endpoint duyệt đơn đăng ký
-
+        [Permission(AppPermission.Admin_Membership_Approve)]
         [HttpPost("approve")]
         public async Task<IActionResult> Approve([FromBody] int membershipId)
         {
@@ -67,6 +71,7 @@ namespace SCMS.WebAPI.Controllers.Admin
             return Ok(new { message = "Duyệt đơn thành công" });
         }
 
+        [Permission(AppPermission.Admin_Membership_Reject)]
         [HttpPost("reject")]
         public async Task<IActionResult> Reject([FromBody] int membershipId)
         {
@@ -80,6 +85,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Kick thành viên đã được duyệt ra khỏi CLB
+        [Permission(AppPermission.Admin_Membership_Kick)]
         [HttpPost("kick")]
         public async Task<IActionResult> Kick([FromBody] int membershipId)
         {
@@ -106,6 +112,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Lấy tất cả đơn đăng ký tham gia CLB của một user (dành cho admin)
         /// </summary>
+        [Permission(AppPermission.Admin_Membership_View_User_Applications)]
         [HttpGet("users/{userId}/applications")]
         public async Task<IActionResult> GetUserApplications(
             int userId,
@@ -148,6 +155,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 /// <summary>
 /// Lấy danh sách đơn đăng ký chờ duyệt của một CLB (status = Pending)
 /// </summary>
+[Permission(AppPermission.Admin_Membership_View_Pending_Applications)]
 [HttpGet("clubs/{clubId}/pending-applications")]
 public async Task<IActionResult> GetPendingApplications(
     int clubId,
@@ -171,6 +179,7 @@ public async Task<IActionResult> GetPendingApplications(
        /// <summary>
 /// Lấy danh sách đơn đăng ký đã từ chối của một CLB (status = Rejected)
 /// </summary>
+[Permission(AppPermission.Admin_Membership_View_Rejected_Applications)]
 [HttpGet("clubs/{clubId}/rejected-applications")]
 public async Task<IActionResult> GetRejectedApplications(
     int clubId,

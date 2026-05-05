@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets/uploads/avatars/7cbf989d1fc541a9b9229658ff3ca12b.jpeg"
     },
     {
+      "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/avatars/97df3bd13a984ccc956151800ddcffbc.jpg",
+      "PackagePath": "staticwebassets/uploads/avatars/97df3bd13a984ccc956151800ddcffbc.jpg"
+    },
+    {
       "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/avatars/9899cfa00c1c43d896d813ca1ca1320b.jpeg",
       "PackagePath": "staticwebassets/uploads/avatars/9899cfa00c1c43d896d813ca1ca1320b.jpeg"
     },
     {
       "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/1bea0ee3-80ae-4319-8b0c-2e9176589676_images.jpeg",
       "PackagePath": "staticwebassets/uploads/postImg/1bea0ee3-80ae-4319-8b0c-2e9176589676_images.jpeg"
+    },
+    {
+      "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/41b0dd75-c19c-4434-be9d-42efa5d0a3d0_chup-anh-su-kien-1920x1080.jpg",
+      "PackagePath": "staticwebassets/uploads/postImg/41b0dd75-c19c-4434-be9d-42efa5d0a3d0_chup-anh-su-kien-1920x1080.jpg"
     },
     {
       "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/49162b68-0b5d-443c-8526-444a31a636d8_images.jpeg",
@@ -23,6 +31,10 @@
     {
       "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/d347ae5c-58e0-44a2-b848-36b5308360ec_images.jpeg",
       "PackagePath": "staticwebassets/uploads/postImg/d347ae5c-58e0-44a2-b848-36b5308360ec_images.jpeg"
+    },
+    {
+      "Id": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/deba5266-7244-407d-8d20-6714da8ec205_img_3138_fsoq0-4-1024x682.jpg",
+      "PackagePath": "staticwebassets/uploads/postImg/deba5266-7244-407d-8d20-6714da8ec205_img_3138_fsoq0-4-1024x682.jpg"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.SCMS.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props",

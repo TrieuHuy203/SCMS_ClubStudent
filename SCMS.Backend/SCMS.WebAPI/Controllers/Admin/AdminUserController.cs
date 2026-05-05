@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.DTOs.Responses;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
     // Đặt route cho controller, ví dụ: api/admin/user
@@ -20,6 +21,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
 		// Hàm lấy danh sách user có phân trang
+		 [Permission(AppPermission.Admin_User_View_List)]
 		[HttpGet]
 		public async Task<IActionResult> GetUsersPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
@@ -30,6 +32,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		// Tạo mới user (Admin)
         // Endpoint POST: api/admin/user
         [HttpPost] // Định nghĩa endpoint để tạo user mới
+        [Permission(AppPermission.Admin_User_Create)]
         public async Task<IActionResult> CreateUser([FromBody] UserCreateRequest request)
         {
             // Gọi service để tạo user mới
@@ -45,6 +48,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		// Cập nhật thông tin user
 		 // PUT: api/admin/users/{id}
 		[HttpPut("{id}")]
+		[Permission(AppPermission.Admin_User_Update)]
 		public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateRequest request)
 		{
 			// Lấy actor từ token để audit ghi đúng người thực hiện cập nhật.
@@ -66,6 +70,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 
 		// xoá user
 	[HttpDelete("{id}")]
+	[Permission(AppPermission.Admin_User_Delete)]
 	public async Task<IActionResult> DeleteUser(int id)
 	{
 		// Lấy id user hiện tại từ token (ví dụ dùng JWT, claim tên "userId")
@@ -85,6 +90,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 
 		// Vô hiệu hóa user
 		[HttpPatch("{id}/status")]
+		[Permission(AppPermission.Admin_User_Set_Status)]
 		public async Task<IActionResult> SetUserStatus(int id, [FromQuery] bool isDisabled)
 		{
 			// Sửa lỗi: claim trong token là "UserId" (chữ U hoa), nếu dùng "userId" sẽ bị null
@@ -108,6 +114,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 
 		// Lấy chi tiết thông tin user theo Id
 		[HttpGet("{id}")]
+		[Permission(AppPermission.Admin_User_View_Detail)]
 		public async Task<IActionResult> GetUserDetail(int id)
 		{
 			var user = await _userService.GetUserDetailAsync(id);
@@ -118,6 +125,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		
 		//  tìm kiếm user
 	[HttpGet("search")]
+	[Permission(AppPermission.Admin_User_Search)]
 public async Task<IActionResult> SearchUsers([FromQuery] UserSearchRequest request)
 {
     var result = await _userService.SearchUsersPagedAsync(request);
@@ -126,6 +134,7 @@ public async Task<IActionResult> SearchUsers([FromQuery] UserSearchRequest reque
 
 		// Admin reset mật khẩu cho user
 		[HttpPost("{id}/reset-password")]
+		[Permission(AppPermission.Admin_User_Reset_Password)]
 		public async Task<IActionResult> AdminResetPassword(int id, [FromBody] AdminResetPasswordRequest request)
 		{
 			try
@@ -154,6 +163,7 @@ public async Task<IActionResult> SearchUsers([FromQuery] UserSearchRequest reque
 		}
 		
    // Lấy danh sách avatar user
+   [Permission(AppPermission.Admin_User_Avatar_View_List)]
 [HttpGet("avatars")]
 public async Task<IActionResult> GetAllUserAvatars()
 {
@@ -162,6 +172,7 @@ public async Task<IActionResult> GetAllUserAvatars()
 }
 
 // Lấy chi tiết avatar user theo userId
+[Permission(AppPermission.Admin_User_Avatar_View_Detail)]
 [HttpGet("{userId}/avatar")]
 public async Task<IActionResult> GetUserAvatar(int userId)
 {
@@ -171,6 +182,7 @@ public async Task<IActionResult> GetUserAvatar(int userId)
 }
 
 // Xóa avatar user theo userId
+[Permission(AppPermission.Admin_User_Avatar_Delete)]
 [HttpDelete("{userId}/avatar")]
 public async Task<IActionResult> DeleteUserAvatar(int userId)
 {
@@ -180,6 +192,5 @@ public async Task<IActionResult> DeleteUserAvatar(int userId)
 }
    
    
-   
     }
-}
+    }

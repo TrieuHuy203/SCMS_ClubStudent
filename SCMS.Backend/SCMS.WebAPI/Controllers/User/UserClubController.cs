@@ -3,6 +3,8 @@ using System;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -18,6 +20,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User gửi yêu cầu tạo câu lạc bộ (chờ admin duyệt)
+		[Permission(AppPermission.User_Club_Register)]
 		[HttpPost("register")]
 		public async Task<IActionResult> RegisterClub([FromBody] ClubCreateRequest request)
 		{
@@ -46,6 +49,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách câu lạc bộ (phân trang)
+		 [Permission(AppPermission.User_Club_View_List)]
 		[HttpGet("list")]
 		public async Task<IActionResult> GetList(
 			[FromQuery] int page = 1,
@@ -59,6 +63,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User tìm kiếm câu lạc bộ (search + pagination)
+		[Permission(AppPermission.User_Club_Search)]
 		[HttpGet("search")]
 		public async Task<IActionResult> Search([FromQuery] ClubSearchRequest request)
 		{
@@ -74,6 +79,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết một câu lạc bộ
+		 [Permission(AppPermission.User_Club_View_Detail)]
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)
 		{

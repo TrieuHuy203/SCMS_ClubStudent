@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.DTOs.Search;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.DomainEntities.Entities;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; 
 namespace SCMS.WebAPI.Controllers.Admin
 {
 	[ApiController]
@@ -20,6 +22,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin xem tất cả feedback (search + pagination)
+		[Permission(AppPermission.Admin_Feedback_View_List)]
 		[HttpGet("list")]
 		public async Task<IActionResult> GetAll([FromQuery] FeedbackSearchRequest request)
 		{
@@ -32,6 +35,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin xem chi tiết một feedback
+		[Permission(AppPermission.Admin_Feedback_View_Detail)]
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)
 		{
@@ -55,6 +59,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin đánh dấu feedback đã xem
+		[Permission(AppPermission.Admin_Feedback_Mark_Reviewed)]
 		[HttpPost("{id}/mark-reviewed")]
 		public async Task<IActionResult> MarkReviewed(int id, [FromBody] MarkReviewedRequest request)
 		{
@@ -87,6 +92,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin đánh dấu feedback đã giải quyết
+		[Permission(AppPermission.Admin_Feedback_Mark_Resolved)]
 		[HttpPost("{id}/mark-resolved")]
 		public async Task<IActionResult> MarkResolved(int id, [FromBody] MarkResolvedRequest request)
 		{
@@ -119,6 +125,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin sửa feedback (dùng để chuẩn hoá nộ dung , nếu cần lưu vào hồ sơ)
+		[Permission(AppPermission.Admin_Feedback_Update)]
 		[HttpPut("update/{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdateFeedbackRequest request)
 		{
@@ -157,6 +164,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin xóa feedback
+		[Permission(AppPermission.Admin_Feedback_Delete)]
 		[HttpDelete("delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{

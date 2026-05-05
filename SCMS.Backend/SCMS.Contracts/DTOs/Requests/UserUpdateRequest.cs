@@ -4,15 +4,18 @@ namespace SCMS.Contracts.DTOs.Requests
     public class UserUpdateRequest
     {
         // Họ tên mới (bắt buộc)
-        public string ?FullName { get; set; }
+        public string? FullName { get; set; }
 
         // Email mới (bắt buộc)
-        public string ?Email { get; set; }
+        public string? Email { get; set; }
 
         // Số điện thoại mới (không bắt buộc)
         public string? Phone { get; set; }
 
         // Trạng thái tài khoản (Active/Inactive/...)
         public string? Status { get; set; }
+
+        // Trạng thái xác thực email (true: đã xác thực, false: chưa xác thực)
+        public bool? IsEmailConfirmed { get; set; }
     }
 }

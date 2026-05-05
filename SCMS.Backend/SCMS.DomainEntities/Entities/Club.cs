@@ -14,10 +14,18 @@ public partial class Club
     public string? Field { get; set; }
 
     public string? School { get; set; }
+    public int? CreatedByUserId { get; set; } // Id người tạo CLB
+
+// Nếu muốn navigation property:
+public virtual User CreatedByUser { get; set; }
 
     public int? MemberCount { get; set; }
 
     public string? Status { get; set; }
+
+    public string? RejectReason { get; set; }
+
+    public bool IsDisabled { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers.User
 {
@@ -18,6 +20,7 @@ namespace SCMS.WebAPI.Controllers.User
         }
 
         // Upload ảnh cho bài post
+        [Permission(AppPermission.User_Post_Image_Upload)]
         [HttpPost("upload")]
         [RequestSizeLimit(10_000_000)] // Giới hạn 10MB, tùy chỉnh nếu cần
         public async Task<IActionResult> Upload([FromForm] CreatePostImageRequest request)
@@ -50,6 +53,7 @@ namespace SCMS.WebAPI.Controllers.User
         }
 
         // Lấy danh sách ảnh của 1 bài post
+        [Permission(AppPermission.User_Post_Image_View_List)]
         [HttpGet("{postId}")]
         public async Task<IActionResult> GetImages(int postId)
         {
@@ -58,6 +62,7 @@ namespace SCMS.WebAPI.Controllers.User
         }
 
         // Xóa ảnh (nếu cần)
+        [Permission(AppPermission.User_Post_Image_Delete)]
         [HttpDelete("{imageId}")]
         public async Task<IActionResult> Delete(int imageId)
         {

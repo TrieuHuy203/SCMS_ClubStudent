@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 
 namespace SCMS.WebAPI.Controllers.Admin
 {
@@ -19,6 +21,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin xem chi tiết một đăng ký sự kiện
+        [Permission(AppPermission.Admin_EventRegistration_View_Detail)]
         [HttpGet("details/{id}")]
         public async Task<IActionResult> GetRegistrationDetail(int id)
         {
@@ -38,6 +41,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin xem toàn bộ danh sách đăng ký sự kiện (list + paging)
+        [Permission(AppPermission.Admin_EventRegistration_View_List)]
         [HttpGet("list")]
         public async Task<IActionResult> GetAllRegistrationsList([FromQuery] EventRegistrationSearchRequest request)
         {
@@ -53,6 +57,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Giữ endpoint cũ để tương thích ngược
+        [Permission(AppPermission.Admin_EventRegistration_View_All)]
         [HttpGet("registrations")]
         public async Task<IActionResult> GetAllRegistrations([FromQuery] EventRegistrationSearchRequest request)
         {
@@ -68,6 +73,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin tìm kiếm toàn bộ danh sách đăng ký (search + paging)
+        [Permission(AppPermission.Admin_EventRegistration_Search)]
         [HttpGet("search")]
         public async Task<IActionResult> SearchAllRegistrations([FromQuery] EventRegistrationSearchRequest request)
         {
@@ -88,6 +94,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin xem danh sách người đăng ký theo từng sự kiện (list + paging)
+        [Permission(AppPermission.Admin_EventRegistration_View_Event_Registrations_List)]
         [HttpGet("events/{eventId}/registrations/list")]
         public async Task<IActionResult> GetRegistrationsByEventList(
             int eventId,
@@ -109,6 +116,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Giữ endpoint cũ để tương thích ngược
+        [Permission(AppPermission.Admin_EventRegistration_View_Event_Registrations)]
         [HttpGet("events/{eventId}/registrations")] 
         public async Task<IActionResult> GetRegistrationsByEvent(
             int eventId,
@@ -130,6 +138,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin tìm kiếm người đăng ký theo từng sự kiện (search + paging)
+        [Permission(AppPermission.Admin_EventRegistration_Search_Event_Registrations)]
         [HttpGet("events/{eventId}/registrations/search")]
         public async Task<IActionResult> SearchRegistrationsByEvent(
             int eventId,
@@ -156,6 +165,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Admin export danh sách người đăng ký theo sự kiện (CSV)
+        [Permission(AppPermission.Admin_EventRegistration_Export_Event_Registrations)]
         [HttpGet("events/{eventId}/registrations/export")]
         public async Task<IActionResult> ExportRegistrationsByEvent(int eventId)
         {

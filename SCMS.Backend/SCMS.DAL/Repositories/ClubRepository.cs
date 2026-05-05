@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SCMS.Contracts.DTOs.Requests;
+ using SCMS.Contracts.DTOs.Responses;
+
 
 namespace SCMS.DAL.Repositories
 {
@@ -21,6 +23,7 @@ namespace SCMS.DAL.Repositories
         // Lấy tất cả các club
         public async Task<IEnumerable<Club>> GetAllClubsAsync()
         {
+            // Lấy toàn bộ club để phục vụ quản trị và lọc phía API/search
             return await _context.Clubs.ToListAsync();
         }
 
@@ -45,13 +48,32 @@ namespace SCMS.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
+        // Bật/tắt trạng thái vô hiệu hóa club
+        public async Task<bool> SetClubDisabledAsync(int id, bool isDisabled)
+        {
+            var club = await _context.Clubs.FindAsync(id);
+            if (club == null)
+                return false;
+
+            club.IsDisabled = isDisabled;
+            club.Status = isDisabled ? "Inactive" : "Active";
+
+            _context.Clubs.Update(club);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        
+
         // Xóa club
         public async Task DeleteClubAsync(int id)
         {
             var club = await _context.Clubs.FindAsync(id);
             if (club != null)
             {
-                _context.Clubs.Remove(club);
+                // Xóa mềm: đánh dấu đã bị vô hiệu hóa và Deleted
+                club.IsDisabled = true;
+                club.Status = "Deleted";
+                _context.Clubs.Update(club);
                 await _context.SaveChangesAsync();
             }
 
@@ -61,7 +83,7 @@ namespace SCMS.DAL.Repositories
         // Lấy club theo trang (pagination), trả về danh sách club và tổng số club (để client biết có bao nhiêu trang)
                 public async Task<(List<Club> Clubs, int TotalCount)> GetClubsPagedAsync(int page, int pageSize)
         {
-            var query = _context.Clubs.Where(c => c.Status != "Deleted"); // chỉ lấy club chưa xóa
+            var query = _context.Clubs.Where(c => !c.IsDisabled && c.Status != "Deleted"); // chỉ lấy club chưa xóa và chưa bị vô hiệu hóa
             var totalCount = await query.CountAsync();
             var clubs = await query
                 .OrderBy(c => c.ClubId)
@@ -109,5 +131,24 @@ namespace SCMS.DAL.Repositories
             return (clubs, totalCount);
         }
 
+  
+ 
+// Lấy thống kê số lượng thành viên, bài viết, sự kiện, bình luận của một club
+public async Task<ClubStatisticsDto> GetStatisticsAsync(int clubId)
+{
+    var memberCount = await _context.Memberships.CountAsync(m => m.ClubId == clubId);
+    var postCount = await _context.Posts.CountAsync(p => p.ClubId == clubId);
+    var eventCount = await _context.Events.CountAsync(e => e.ClubId == clubId);
+   var commentCount = await _context.Comments.CountAsync(c => c.Post.ClubId == clubId);
+
+    return new ClubStatisticsDto
+    {
+        MemberCount = memberCount,
+        PostCount = postCount,
+        EventCount = eventCount,
+        CommentCount = commentCount
+    };
+}
+  
     }
 }

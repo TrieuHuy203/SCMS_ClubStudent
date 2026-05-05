@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCMS.DomainEntities\SCMS.DomainEntities.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -9,5 +10,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  
 
 </Project>

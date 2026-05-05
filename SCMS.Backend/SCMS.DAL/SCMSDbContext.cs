@@ -57,6 +57,8 @@ public partial class SCMSDbContext : DbContext
 
     public virtual DbSet<PostTag> PostTags { get; set; }
 
+    public virtual DbSet<PostImage> PostImages { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<RolePermission> RolePermissions { get; set; }
@@ -76,6 +78,9 @@ public partial class SCMSDbContext : DbContext
     public virtual DbSet<UserPermission> UserPermissions { get; set; }
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
+
+    // Thêm DbSet cho PostReport
+    public virtual DbSet<PostReport> PostReports { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -103,6 +108,12 @@ public partial class SCMSDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Achievement_User");
         });
+        modelBuilder.Entity<PostImage>(entity =>
+{
+    entity.HasKey(e => e.ImageId);
+    entity.ToTable("PostImage");
+    // Nếu cần, có thể thêm các cấu hình khác ở đây
+});
 
         modelBuilder.Entity<AuditLog>(entity =>
         {
@@ -165,10 +176,20 @@ public partial class SCMSDbContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.Field).HasMaxLength(100);
             entity.Property(e => e.MemberCount).HasDefaultValue(0);
+            entity.Property(e => e.IsDisabled).HasDefaultValue(false);
+            entity.Property(e => e.RejectReason).HasMaxLength(500);
             entity.Property(e => e.School).HasMaxLength(100);
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasDefaultValue("Active");
+
+            // Cấu hình property CreatedByUserId và quan hệ khóa ngoại với User
+            entity.Property(e => e.CreatedByUserId).IsRequired(false);
+            entity.HasOne(d => d.CreatedByUser)
+                .WithMany()
+                .HasForeignKey(d => d.CreatedByUserId)
+                .HasConstraintName("FK_Club_User_CreatedBy")
+                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<ClubFavorite>(entity =>
@@ -258,10 +279,15 @@ public partial class SCMSDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.ApprovedAt).HasColumnType("datetime");
+            entity.Property(e => e.ApprovedBy);
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.EndDateTime).HasColumnType("datetime");
             entity.Property(e => e.EventName).HasMaxLength(100);
             entity.Property(e => e.EventTime).HasColumnType("datetime");
             entity.Property(e => e.Location).HasMaxLength(200);
+            entity.Property(e => e.ParticipantCount).HasDefaultValue(0);
+            entity.Property(e => e.RejectReason).HasMaxLength(500);
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasDefaultValue("Upcoming");
@@ -573,7 +599,15 @@ public partial class SCMSDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+
+            entity.Property(e => e.RejectReason).HasMaxLength(255);
+
             entity.Property(e => e.PostType).HasMaxLength(50);
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasDefaultValue("Pending");
+
             entity.Property(e => e.Title).HasMaxLength(200);
 
             entity.HasOne(d => d.Club).WithMany(p => p.Posts)
@@ -616,11 +650,13 @@ public partial class SCMSDbContext : DbContext
         modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.RoleId).HasName("PK__Roles__8AFACE1A85C0A892");
-
+        {
+            entity.HasKey(e => e.RoleId).HasName("PK__Roles__8AFACE1A85C0A892");
             entity.Property(e => e.Description).HasMaxLength(200);
             entity.Property(e => e.RoleName).HasMaxLength(50);
+            entity.Property(e => e.IsActive);
+        }
         });
-
         modelBuilder.Entity<RolePermission>(entity =>
         {
             entity.HasKey(e => e.RolePermissionId).HasName("PK__RolePerm__120F46BA1F382411");
@@ -817,4 +853,38 @@ public partial class SCMSDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    // --- Cấu hình cho PostReport (gộp từ partial) ---
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<PostReport>(entity =>
+        {
+            entity.HasKey(e => e.PostReportId);
+
+            entity.ToTable("PostReport");
+
+            entity.HasIndex(e => new { e.UserId, e.PostId }).IsUnique();
+
+            entity.Property(e => e.Reason).HasMaxLength(200);
+            entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasDefaultValue("Pending");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Post)
+                .WithMany()
+                .HasForeignKey(d => d.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PostReport_Post");
+
+            entity.HasOne(d => d.User)
+                .WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PostReport_User");
+        });
+    }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LqCNG+V1CeIpm5o7cJSrtRTIZMrpgVp6RP9nTJ+erNE=",
+  "Hash": "WfaqUEz3t6HmeGPlZGbT44d2rOZyqY+UXX8K0CnbxiA=",
   "Source": "SCMS.WebAPI",
   "BasePath": "_content/SCMS.WebAPI",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/avatars/7cbf989d1fc541a9b9229658ff3ca12b.jpeg"
+    },
+    {
+      "Identity": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/avatars/97df3bd13a984ccc956151800ddcffbc.jpg",
+      "SourceId": "SCMS.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/",
+      "BasePath": "_content/SCMS.WebAPI",
+      "RelativePath": "uploads/avatars/97df3bd13a984ccc956151800ddcffbc.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/avatars/97df3bd13a984ccc956151800ddcffbc.jpg"
     },
     {
       "Identity": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/avatars/9899cfa00c1c43d896d813ca1ca1320b.jpeg",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/postImg/1bea0ee3-80ae-4319-8b0c-2e9176589676_images.jpeg"
+    },
+    {
+      "Identity": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/41b0dd75-c19c-4434-be9d-42efa5d0a3d0_chup-anh-su-kien-1920x1080.jpg",
+      "SourceId": "SCMS.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/",
+      "BasePath": "_content/SCMS.WebAPI",
+      "RelativePath": "uploads/postImg/41b0dd75-c19c-4434-be9d-42efa5d0a3d0_chup-anh-su-kien-1920x1080.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/postImg/41b0dd75-c19c-4434-be9d-42efa5d0a3d0_chup-anh-su-kien-1920x1080.jpg"
     },
     {
       "Identity": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/49162b68-0b5d-443c-8526-444a31a636d8_images.jpeg",
@@ -129,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/postImg/d347ae5c-58e0-44a2-b848-36b5308360ec_images.jpeg"
+    },
+    {
+      "Identity": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/uploads/postImg/deba5266-7244-407d-8d20-6714da8ec205_img_3138_fsoq0-4-1024x682.jpg",
+      "SourceId": "SCMS.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/wwwroot/",
+      "BasePath": "_content/SCMS.WebAPI",
+      "RelativePath": "uploads/postImg/deba5266-7244-407d-8d20-6714da8ec205_img_3138_fsoq0-4-1024x682.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/postImg/deba5266-7244-407d-8d20-6714da8ec205_img_3138_fsoq0-4-1024x682.jpg"
     }
   ]
 }

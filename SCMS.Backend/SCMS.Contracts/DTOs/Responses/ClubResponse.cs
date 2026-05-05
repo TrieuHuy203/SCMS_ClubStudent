@@ -9,7 +9,9 @@ namespace SCMS.Contracts.DTOs.Responses
         public string? School { get; set; }
         public int? MemberCount { get; set; }
         public string? Status { get; set; }
+        public string? RejectReason { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public int? CreatedByUserId { get; set; } // Id người tạo CLB
         // ... các trường khác nếu cần
     }
 }

@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.WebAPI.Attributes;
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 namespace SCMS.WebAPI.Controllers.Admin
+
 {
 	[ApiController]
 	[Route("api/admin/club-favorites")]
@@ -15,7 +17,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		{
 			_clubFavoriteService = clubFavoriteService;
 		}
-
+        [Permission(AppPermission.Admin_Club_Favorite_View_List)]
 		// Admin xem tất cả favorite của user (search + pagination)
 		[HttpGet("list")]
 		public async Task<IActionResult> GetAll([FromQuery] ClubFavoriteSearchRequest request)
@@ -28,6 +30,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 			return Ok(result);
 		}
 
+		[Permission(AppPermission.Admin_Club_Favorite_View_Detail)]
 		// Admin xem chi tiết 1 bản ghi favorite
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)

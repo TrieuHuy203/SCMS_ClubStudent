@@ -24,6 +24,9 @@ public partial class User
     public bool IsEmailConfirmed { get; set; } = false;
     public string? EmailConfirmationToken { get; set; }
     public DateTime? EmailConfirmationTokenExpiry { get; set; }
+    public string? ResetPasswordToken { get; set; }
+    public DateTime? ResetPasswordTokenExpiry { get; set; }
+    public string? AvatarUrl { get; set; }
 
     public virtual ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 

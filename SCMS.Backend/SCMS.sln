@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCMS.BusinessService", "SCM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCMS.WebAPI", "SCMS.WebAPI\SCMS.WebAPI.csproj", "{412068C8-660D-42E4-98C9-1DF923ADC830}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCMS.Common", "SCMS.Common\SCMS.Common.csproj", "{37AEA276-4632-4BBC-807C-036AAB0BB1FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{412068C8-660D-42E4-98C9-1DF923ADC830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{412068C8-660D-42E4-98C9-1DF923ADC830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{412068C8-660D-42E4-98C9-1DF923ADC830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37AEA276-4632-4BBC-807C-036AAB0BB1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37AEA276-4632-4BBC-807C-036AAB0BB1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37AEA276-4632-4BBC-807C-036AAB0BB1FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37AEA276-4632-4BBC-807C-036AAB0BB1FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

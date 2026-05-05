@@ -757,12 +757,21 @@
         "dependencies": {
           "BCrypt.Net-Next": "4.1.0",
           "MailKit": "4.15.1",
+          "SCMS.Common": "1.0.0",
           "SCMS.Contracts": "1.0.0",
           "SCMS.DAL": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.17.0"
         },
         "runtime": {
           "SCMS.BusinessService.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SCMS.Common/1.0.0": {
+        "runtime": {
+          "SCMS.Common.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1342,6 +1351,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "SCMS.BusinessService/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SCMS.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

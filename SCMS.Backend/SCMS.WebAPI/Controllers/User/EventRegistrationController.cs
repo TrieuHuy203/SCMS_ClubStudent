@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -19,6 +21,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User đăng ký tham gia sự kiện
+		[Permission(AppPermission.Event_Registration_Register)]
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] EventRegisterRequest request)
 		{
@@ -55,6 +58,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách sự kiện đã đăng ký của chính mình (search + paging)
+		[Permission(AppPermission.Event_Registration_View_My_List)]
 		[HttpGet("my-registrations")]
 		public async Task<IActionResult> GetMyRegistrations([FromQuery] EventRegistrationSearchRequest request)
 		{
@@ -68,6 +72,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết 1 đăng ký sự kiện thuộc về chính mình
+		[Permission(AppPermission.Event_Registration_View_My_Detail)]
 		[HttpGet("my-registrations/{id}")] // id ở đây là EventRegistrationId
 		public async Task<IActionResult> GetMyRegistrationDetail(int id)
 		{
@@ -88,6 +93,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User hủy đăng ký sự kiện của chính mình
+		[Permission(AppPermission.Event_Registration_Cancel_My_Registration)]
 		[HttpPost("my-registrations/{id}/cancel")] // id ở đây là EventRegistrationId
 		public async Task<IActionResult> CancelMyRegistration(int id)
 		{
@@ -116,6 +122,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// Nhóm trưởng xem danh sách thành viên tham gia sự kiện của câu lạc bộ mình tổ chức (search + paging)
+		[Permission(AppPermission.Event_Registration_View_Club_Event_Registrations)]
 		[HttpGet("my-clubs-events/{eventId}/registrations")]
 		public async Task<IActionResult> GetMyClubEventRegistrations(
 			int eventId,
@@ -142,6 +149,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// Nhóm trưởng export danh sách thành viên tham gia sự kiện của CLB mình tổ chức (CSV)
+		[Permission(AppPermission.Event_Registration_Export_Club_Event_Registrations)]
 		[HttpGet("my-clubs-events/{eventId}/registrations/export")]
 		public async Task<IActionResult> ExportMyClubEventRegistrations(int eventId)
 		{

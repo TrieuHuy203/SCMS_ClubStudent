@@ -2,10 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums;
+
 
 namespace SCMS.WebAPI.Controllers.Admin
 {
     [ApiController]
+    
     [Route("api/admin/audit-logs")]
     public class AdminAuditLogController : ControllerBase
     {
@@ -17,6 +21,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // GET: api/admin/audit-logs
+      [Permission(AppPermission.Admin_AuditLog_View)]
         [HttpGet]
         public async Task<IActionResult> GetAuditLogs([FromQuery] AuditLogSearchRequest request)
         {

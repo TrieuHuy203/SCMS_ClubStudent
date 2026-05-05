@@ -8,7 +8,7 @@ namespace SCMS.Contracts.DTOs.Responses
         public string ?Username { get; set; } 
         // Họ và tên
         public string ?FullName { get; set; } 
-        // Email
+        // Email    
         public string ?Email { get; set; } 
         // Số điện thoại
         public string ?Phone { get; set; } 

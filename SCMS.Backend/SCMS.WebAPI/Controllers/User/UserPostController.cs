@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -19,6 +21,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User tạo bài viết mới
+		[Permission(AppPermission.User_Post_Create)]
 		[HttpPost("create")]
 		public async Task<IActionResult> Create([FromBody] CreatePostRequest request)
 		{
@@ -59,6 +62,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách bài viết của chính mình (search + pagination)
+		[Permission(AppPermission.User_Post_View_My_List)]
 		[HttpGet("my-posts")]
 		public async Task<IActionResult> GetMyPosts([FromQuery] PostSearchRequest request)
 		{
@@ -76,6 +80,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách bài viết của các CLB mình đã tham gia
+				[Permission(AppPermission.User_Post_View_My_Club_List)]
 				[HttpGet("my-club-posts")]
 				public async Task<IActionResult> GetMyClubPosts([FromQuery] PostSearchRequest request)
 				{
@@ -99,6 +104,7 @@ namespace SCMS.WebAPI.Controllers
 				}
 
 		// User xem danh sách bài viết công khai toàn hệ thống
+		[Permission(AppPermission.User_Post_View_Public_List)]
 		[HttpGet("public")]
 		public async Task<IActionResult> GetPublicPosts([FromQuery] PostSearchRequest request)
 		{
@@ -111,6 +117,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết một bài viết của chính mình
+		[Permission(AppPermission.User_Post_View_My_Detail)]
 		[HttpGet("my-posts/{id}")]
 		public async Task<IActionResult> GetMyPostDetail(int id)
 		{
@@ -131,6 +138,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User sửa bài viết của chính mình
+		[Permission(AppPermission.User_Post_Update)]
 		[HttpPut("my-posts/{id}")] // id của bài viết cần sửa
 		public async Task<IActionResult> Update(int id, [FromBody] UpdatePostRequest request)
 		{
@@ -169,6 +177,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xóa bài viết của chính mình
+		[Permission(AppPermission.User_Post_Delete)]
 		[HttpDelete("my-posts/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -201,6 +210,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User like bài viết
+		[Permission(AppPermission.User_Post_Like)]
 		[HttpPost("{id}/like")]
 		public async Task<IActionResult> LikePost(int id)
 		{
@@ -234,6 +244,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User bỏ like bài viết
+		[Permission(AppPermission.User_Post_Unlike)]
 		[HttpDelete("{id}/like")]
 		public async Task<IActionResult> UnlikePost(int id)
 		{
@@ -268,6 +279,7 @@ namespace SCMS.WebAPI.Controllers
 		
 
 		// User báo cáo bài viết
+		[Permission(AppPermission.User_Post_Report)]
 		[HttpPost("{id}/report")]
 		public async Task<IActionResult> ReportPost(int id, [FromBody] CreatePostReportRequest request)
 		{
@@ -304,6 +316,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 		
 		// User xem danh sách bài viết đã like
+		[Permission(AppPermission.User_Post_View_Liked_List)]
 [HttpGet("liked-posts")]
 public async Task<IActionResult> GetLikedPosts([FromQuery] PostSearchRequest request)
 {

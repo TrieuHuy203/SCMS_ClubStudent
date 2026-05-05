@@ -14,13 +14,26 @@ public partial class Event
 
     public DateTime EventTime { get; set; }
 
+    public DateTime? EndDateTime { get; set; }
+
     public string? Location { get; set; }
 
     public string? Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
+    public int? ParticipantCount { get; set; }
+
+    public int? MaxParticipants { get; set; }
+
+    public string? RejectReason { get; set; }
+
+    public DateTime? ApprovedAt { get; set; }
+
+    public int? ApprovedBy { get; set; }
+
     public virtual Club Club { get; set; } = null!;
+    public bool IsDeleted { get; set; } = false;
 
     public virtual ICollection<EventRegistration> EventRegistrations { get; set; } = new List<EventRegistration>();
 

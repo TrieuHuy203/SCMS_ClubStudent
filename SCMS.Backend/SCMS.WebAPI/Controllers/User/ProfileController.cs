@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
 using System.IO;
+using System.Threading.Tasks;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers.User
 {
@@ -22,6 +25,7 @@ namespace SCMS.WebAPI.Controllers.User
 		}
 
 		// Lấy hồ sơ cá nhân của user đang đăng nhập
+		[Permission(AppPermission.Profile_View_My_Profile)]
 		[HttpGet]
 		public async Task<IActionResult> GetMyProfile()
 		{
@@ -46,6 +50,7 @@ namespace SCMS.WebAPI.Controllers.User
 		}
 
 		// Upload avatar lên backend và lưu URL vào hồ sơ cá nhân
+		[Permission(AppPermission.Profile_Upload_Avatar)]
 		[HttpPost("avatar")]
 		public async Task<IActionResult> UploadAvatar([FromForm] UploadAvatarRequest request)
 		{
@@ -152,6 +157,7 @@ namespace SCMS.WebAPI.Controllers.User
 		}
 
 		// Cập nhật hồ sơ cá nhân của user đang đăng nhập
+		[Permission(AppPermission.Profile_Update_My_Profile)]
 		[HttpPut]
 		public async Task<IActionResult> UpdateMyProfile([FromBody] UserProfileUpdateRequest request)
 		{
@@ -162,12 +168,18 @@ namespace SCMS.WebAPI.Controllers.User
 
 			try
 			{
-				var result = await _userService.UpdateMyProfileAsync(userId, request);
-				return Ok(new
-				{
-					message = "Cập nhật hồ sơ cá nhân thành công.",
-					data = result
-				});
+				   // Nếu không muốn cập nhật email, giữ nguyên email cũ
+				   if (request.Email == null)
+				   {
+					   var currentProfile = await _userService.GetMyProfileAsync(userId);
+					   request.Email = currentProfile.Email;
+				   }
+				   var result = await _userService.UpdateMyProfileAsync(userId, request);
+				   return Ok(new
+				   {
+					   message = "Cập nhật hồ sơ cá nhân thành công.",
+					   data = result
+				   });
 			}
 			catch (ArgumentException ex)
 			{
@@ -188,6 +200,7 @@ namespace SCMS.WebAPI.Controllers.User
 		}
 
 		// Đổi mật khẩu của user đang đăng nhập
+		[Permission(AppPermission.Profile_Change_Password)]
 		[HttpPost("change-password")]
 		public async Task<IActionResult> ChangePassword([FromBody] UserChangePasswordRequest request)
 		{

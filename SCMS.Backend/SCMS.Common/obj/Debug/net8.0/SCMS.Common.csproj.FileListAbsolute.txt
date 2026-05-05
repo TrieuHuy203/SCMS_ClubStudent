@@ -1,0 +1,12 @@
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/bin/Debug/net8.0/SCMS.Common.deps.json
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/bin/Debug/net8.0/SCMS.Common.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/bin/Debug/net8.0/SCMS.Common.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.AssemblyInfoInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.AssemblyInfo.cs
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.csproj.CoreCompileInputs.cache
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.sourcelink.json
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/refint/SCMS.Common.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/SCMS.Common.pdb
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.Common/obj/Debug/net8.0/ref/SCMS.Common.dll

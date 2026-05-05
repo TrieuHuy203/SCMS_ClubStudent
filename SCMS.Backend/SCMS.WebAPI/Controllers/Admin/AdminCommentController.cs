@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.DTOs.Search;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.DomainEntities.Entities;
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 
 namespace SCMS.WebAPI.Controllers.Admin
 {
@@ -19,6 +22,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 			_commentService = commentService;
 		}
 
+		[Permission(AppPermission.Admin_Comment_View_List)]
 		// Admin xem tất cả bình luận (search + pagination)
 		[HttpGet("list")]
 		public async Task<IActionResult> GetAll([FromQuery] CommentSearchRequest request)
@@ -31,6 +35,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 			return Ok(result);
 		}
 
+		[Permission(AppPermission.Admin_Comment_View_Detail)]
 		// Admin xem chi tiết một bình luận
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)
@@ -53,7 +58,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 				return StatusCode(500, new { message = ex.Message });
 			}
 		}
-
+		[Permission(AppPermission.Admin_Comment_Update)]
 		// Admin cập nhật bình luận (phần này cần chuẩn hoá nếu cần lưu vào DB)
 		[HttpPut("update/{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdateCommentRequest request)
@@ -88,6 +93,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 			}
 		}
 
+		[Permission(AppPermission.Admin_Comment_Delete_Any)]
 		// Admin xóa bình luận
 		[HttpDelete("delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
@@ -117,7 +123,9 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Lấy tất cả bình luận của một CLB (lọc theo clubId)
+		[Permission(AppPermission.Admin_Comment_View_By_Club)]
 		[HttpGet("clubs/{clubId}/comments")]
+	
 		public async Task<IActionResult> GetAllByClub(int clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
 			var request = new CommentSearchRequest

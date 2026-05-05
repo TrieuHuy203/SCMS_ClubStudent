@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.DTOs.Search;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes;
+using SCMS.DomainEntities.Enums;
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -20,6 +22,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User tạo feedback mới
+		[Permission(AppPermission.User_Feedback_Create)]
 		[HttpPost("create")]
 		public async Task<IActionResult> Create([FromBody] CreateFeedbackRequest request)
 		{
@@ -48,6 +51,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách feedback của chính mình
+		[Permission(AppPermission.User_Feedback_View_List)]
 		[HttpGet("my-feedbacks")]
 		public async Task<IActionResult> GetMyFeedbacks([FromQuery] FeedbackSearchRequest request)
 		{
@@ -65,6 +69,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết một feedback của chính mình
+		[Permission(AppPermission.User_Feedback_View_Detail)]
 		[HttpGet("my-feedbacks/{id}")]
 		public async Task<IActionResult> GetMyFeedbackDetail(int id)
 		{
@@ -89,6 +94,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User sửa feedback của chính mình
+		[Permission(AppPermission.User_Feedback_Update)]
 		[HttpPut("my-feedbacks/{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdateFeedbackRequest request)
 		{
@@ -127,6 +133,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xóa feedback của chính mình
+		[Permission(AppPermission.User_Feedback_Delete)]
 		[HttpDelete("my-feedbacks/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{

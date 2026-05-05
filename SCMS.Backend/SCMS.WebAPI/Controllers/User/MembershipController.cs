@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -19,6 +21,7 @@ namespace SCMS.WebAPI.Controllers
         }
         // API đăng ký tham gia CLB, user gửi yêu cầu đăng ký, trạng thái đơn sẽ là Pending
         [HttpPost("register")]
+        [Permission(AppPermission.Membership_Register)]
         public async Task<IActionResult> Register([FromBody] CreateMembershipRequest request)
         {
             if (!TryGetCurrentUserId(out var userId, out var unauthorizedResult))
@@ -43,6 +46,7 @@ namespace SCMS.WebAPI.Controllers
 
 
 // api xem đơn đã đăng ký của chính mình, có filter trạng thái và phân trang
+    [Permission(AppPermission.Membership_View_My_Applications)]
         [HttpGet("my-applications")]
             public async Task<IActionResult> GetMyApplications(
             [FromQuery] string? status,
@@ -60,6 +64,7 @@ namespace SCMS.WebAPI.Controllers
 
 // API  xem chi tiết đơn đăng ký tham gia CLB của chính mình, chỉ cho phép xem chi tiết đơn của chính mình
         [HttpGet("my-applications/{id}")]
+        [Permission(AppPermission.Membership_View_My_Application_Detail)]
         public async Task<IActionResult> GetMyApplicationDetail(int id)
         {
             if (!TryGetCurrentUserId(out var userId, out var unauthorizedResult))
@@ -78,6 +83,7 @@ namespace SCMS.WebAPI.Controllers
             }
         }
 // api hủy đơn đăng ký của chính mình, chỉ cho phép khi đơn còn Pending
+        [Permission(AppPermission.Membership_Cancel_My_Application)]
         [HttpPost("my-applications/{id}/cancel")] // id ở đây là MembershipId
         public async Task<IActionResult> CancelMyApplication(int id)
         {
@@ -107,6 +113,7 @@ namespace SCMS.WebAPI.Controllers
 
         // API xem các CLB user đã tham gia (membership đã được duyệt)
         [HttpGet("my-clubs")]
+        [Permission(AppPermission.Membership_View_My_Clubs)]
         public async Task<IActionResult> GetMyJoinedClubs(
             [FromQuery] string? keyword,
             [FromQuery] int page = 1,
@@ -123,6 +130,7 @@ namespace SCMS.WebAPI.Controllers
 
         // API xem danh sách thành viên của CLB mà user đã tham gia
         [HttpGet("my-clubs/{clubId}/members")]
+        [Permission(AppPermission.Membership_View_My_Club_Members)]
         public async Task<IActionResult> GetMyClubMembers(
             int clubId,
             [FromQuery] string? keyword,
@@ -147,6 +155,7 @@ namespace SCMS.WebAPI.Controllers
 
         // API rời CLB đã tham gia
         [HttpPost("my-clubs/{clubId}/leave")]
+        [Permission(AppPermission.Membership_Leave_Club)]
         public async Task<IActionResult> LeaveClub(int clubId)
         {
             if (!TryGetCurrentUserId(out var userId, out var unauthorizedResult))

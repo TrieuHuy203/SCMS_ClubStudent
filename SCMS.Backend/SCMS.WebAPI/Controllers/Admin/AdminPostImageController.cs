@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SCMS.Contracts.Interfaces.iService;
 using SCMS.Contracts.DTOs.Requests;
-
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
     [ApiController]
@@ -17,6 +18,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // GET: api/admin/post-images/list
+        [Permission(AppPermission.Admin_Post_Image_View_List)]
         [HttpGet("list")]
         public async Task<IActionResult> GetAll([FromQuery] PostImageSearchRequest request)
         {
@@ -25,6 +27,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // GET: api/admin/post-images/detail/{id}
+        [Permission(AppPermission.Admin_Post_Image_View_Detail)]
         [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {
@@ -34,6 +37,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // DELETE: api/admin/post-images/delete/{id}
+        [Permission(AppPermission.Admin_Post_Image_Delete)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -43,6 +47,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
     
     // nhóm trưởng xem ảnh của tất cả bài post trong club
+    [Permission(AppPermission.Admin_Post_Image_View_By_Club)]
 [HttpGet("by-club/{clubId}")]
 public async Task<IActionResult> GetImagesByClub(int clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 {

@@ -1394,6 +1394,7 @@
         "dependencies": {
           "BCrypt.Net-Next": "4.1.0",
           "MailKit": "4.15.1",
+          "SCMS.Common": "1.0.0",
           "SCMS.Contracts": "1.0.0",
           "SCMS.DAL": "1.0.0",
           "System.IdentityModel.Tokens.Jwt": "8.17.0"
@@ -1403,6 +1404,16 @@
         },
         "runtime": {
           "bin/placeholder/SCMS.BusinessService.dll": {}
+        }
+      },
+      "SCMS.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/SCMS.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SCMS.Common.dll": {}
         }
       },
       "SCMS.Contracts/1.0.0": {
@@ -3798,6 +3809,11 @@
       "type": "project",
       "path": "../SCMS.BusinessService/SCMS.BusinessService.csproj",
       "msbuildProject": "../SCMS.BusinessService/SCMS.BusinessService.csproj"
+    },
+    "SCMS.Common/1.0.0": {
+      "type": "project",
+      "path": "../SCMS.Common/SCMS.Common.csproj",
+      "msbuildProject": "../SCMS.Common/SCMS.Common.csproj"
     },
     "SCMS.Contracts/1.0.0": {
       "type": "project",

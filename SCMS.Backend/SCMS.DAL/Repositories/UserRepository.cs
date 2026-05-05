@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using SCMS.DomainEntities.Entities;
 using SCMS.Contracts.Interfaces.iRepositores;
 using Microsoft.EntityFrameworkCore;
+using SCMS.Contracts.DTOs.Responses;
 
 namespace SCMS.DAL.Repositories
 {
@@ -50,7 +51,7 @@ namespace SCMS.DAL.Repositories
         }
 
         // Lấy user theo Id
-          public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<User> GetByIdAsync(int userId)
         {
             return await _context.Users
                 .Include(u => u.UserRoles)
@@ -66,30 +67,36 @@ namespace SCMS.DAL.Repositories
             return user;
         }
 
-        // Xóa user theo Id
-        public async Task<bool> DeleteUserAsync(int userId)
-        {
-            var user = await _context.Users.FindAsync(userId); // Tìm user theo Id
-            if (user == null)
-                return false;
-            user.IsDisabled = true; // Đánh dấu user là vô hiệu hóa thay vì xóa hẳn
-            _context.Users.Update(user); // Cập nhật user trong DbSet
-            await _context.SaveChangesAsync();
-            return true;
-        }
+        // Xóa user theo Id// Xóa mềm user theo Id
+public async Task<bool> DeleteUserAsync(int userId)
+{
+    var user = await _context.Users.FindAsync(userId);
+    if (user == null)
+        return false;
 
-// Vô hiệu hóa user theo Id
-        public async Task<bool> SetUserDisabledAsync(int userId, bool isDisabled)
-        {
-            var user = await _context.Users.FindAsync(userId); //.  
-            if (user == null)
-                return false;
-            user.IsDisabled = isDisabled; // Cập nhật trạng thái vô hiệu hóa
-            _context.Users.Update(user); // Cập nhật user trong DbSet
-            await _context.SaveChangesAsync(); // Lưu thay đổi vào database
-            return true; // Trả về true nếu thành công
-        }
+    // Xóa mềm = khóa tài khoản + chuyển trạng thái Inactive
+    user.IsDisabled = true;
+    user.Status = "Inactive";
 
+    _context.Users.Update(user);
+    await _context.SaveChangesAsync();
+    return true;
+}
+// Vô hiệu hóa / mở khóa user theo Id
+public async Task<bool> SetUserDisabledAsync(int userId, bool isDisabled)
+{
+    var user = await _context.Users.FindAsync(userId);
+    if (user == null)
+        return false;
+
+    // Đồng bộ cờ khóa và trạng thái nghiệp vụ
+    user.IsDisabled = isDisabled;
+    user.Status = isDisabled ? "Inactive" : "Active";
+
+    _context.Users.Update(user);
+    await _context.SaveChangesAsync();
+    return true;
+}
          /// <summary>
         /// Tìm kiếm user theo keyword (username, email, fullname), status, isDisabled.
         /// Nếu tham số null sẽ bỏ qua điều kiện đó.
@@ -178,7 +185,44 @@ public async Task<User> GetUserByUsernameOrEmailAsync(string usernameOrEmail)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
+    
+    
+     public async Task<IEnumerable<UserAvatarDto>> GetAllUserAvatarsAsync()
+    {
+        return await _context.Users
+            .Select(u => new UserAvatarDto
+            {
+                UserId = u.UserId,
+                FullName = u.FullName,
+                Email = u.Email,
+                AvatarUrl = u.AvatarUrl
+            })
+            .ToListAsync();
+    }
 
+    public async Task<UserAvatarDto?> GetUserAvatarAsync(int userId)
+    {
+        return await _context.Users
+            .Where(u => u.UserId == userId)
+            .Select(u => new UserAvatarDto
+            {
+                UserId = u.UserId,
+                FullName = u.FullName,
+                Email = u.Email,
+                AvatarUrl = u.AvatarUrl
+            })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> DeleteUserAvatarAsync(int userId)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null) return false;
+        user.AvatarUrl = null;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+    
     
     }
 }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.DTOs.Search;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes;
+using SCMS.DomainEntities.Enums;
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -20,6 +22,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User tạo bình luận mới
+		[Permission(AppPermission.User_Comment_Create)]
 		[HttpPost("create")]
 		public async Task<IActionResult> Create([FromBody] CreateCommentRequest request)
 		{
@@ -52,6 +55,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách bình luận của chính mình (search + pagination)
+		[Permission(AppPermission.User_Comment_View_List)]
 		[HttpGet("my-comments")]
 		public async Task<IActionResult> GetMyComments([FromQuery] CommentSearchRequest request)
 		{
@@ -69,6 +73,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết một bình luận của chính mình
+		[Permission(AppPermission.User_Comment_View_Detail)]
 		[HttpGet("my-comments/{id}")]
 		public async Task<IActionResult> GetMyCommentDetail(int id)
 		{
@@ -97,6 +102,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User cập nhật bình luận của chính mình
+		[Permission(AppPermission.User_Comment_Update)]
 		[HttpPut("my-comments/{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdateCommentRequest request)
 		{
@@ -131,6 +137,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xóa bình luận của chính mình
+		[Permission(AppPermission.User_Comment_Delete)]
 		[HttpDelete("my-comments/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -159,6 +166,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User like bình luận
+		[Permission(AppPermission.User_Comment_Like)]
 		[HttpPost("{id}/like")]
 		public async Task<IActionResult> LikeComment(int id)
 		{
@@ -192,6 +200,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User bỏ like bình luận
+		[Permission(AppPermission.User_Comment_Unlike)]
 		[HttpDelete("{id}/like")]
 		public async Task<IActionResult> UnlikeComment(int id)
 		{

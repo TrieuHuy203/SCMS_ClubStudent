@@ -105,3 +105,5 @@
 /Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/bin/Debug/net8.0/tr-TR/Hangfire.Core.resources.dll
 /Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/bin/Debug/net8.0/zh-TW/Hangfire.Core.resources.dll
 /Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/bin/Debug/net8.0/zh/Hangfire.Core.resources.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/bin/Debug/net8.0/SCMS.Common.dll
+/Users/luongtrieu/Documents/MY DOCUMENT/StudentClubManagementSystem/SCMS.Backend/SCMS.WebAPI/bin/Debug/net8.0/SCMS.Common.pdb

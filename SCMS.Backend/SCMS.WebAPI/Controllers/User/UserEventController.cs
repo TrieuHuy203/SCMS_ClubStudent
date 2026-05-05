@@ -3,6 +3,8 @@ using System;
 using System.Threading.Tasks;
 using SCMS.Contracts.Interfaces.iService;
 using Microsoft.AspNetCore.Authorization;
+using SCMS.WebAPI.Attributes;
+using SCMS.DomainEntities.Enums;
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -19,7 +21,8 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách sự kiện (có filter theo keyword, clubId và phân trang) [có thể bị trùng lặp]
-		
+		// api này là dành cho admin không phải user
+		[Permission(AppPermission.User_Event_View_List)]
 		[HttpGet("list")]
 
 		public async Task<IActionResult> GetList(
@@ -33,6 +36,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem sự kiện thuộc các CLB mình đã tham gia (membership Approved)
+		[Permission(AppPermission.User_Event_View_My_Clubs_Events)]
 		[HttpGet("my-clubs-events")]
 		public async Task<IActionResult> GetMyClubsEvents(
 			[FromQuery] string? keyword,
@@ -49,6 +53,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User tìm kiếm sự kiện theo từ khóa
+		[Permission(AppPermission.User_Event_Search)]
 		[HttpGet("search")]
 		public async Task<IActionResult> Search(
 			[FromQuery] string keyword,
@@ -72,6 +77,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem chi tiết một sự kiện
+		[Permission(AppPermission.User_Event_View_Detail)]
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)
 		{

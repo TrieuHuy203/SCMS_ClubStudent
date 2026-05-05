@@ -1,12 +1,12 @@
 // SCMS.WebAPI/Controllers/Admin/EventController.cs
-
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests.Event;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin 
 
     
@@ -25,6 +25,8 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Tạo mới sự kiện.
         /// </summary>
+        /// <returns>Trả về Id của sự kiện vừa được tạo</returns>
+         [Permission(AppPermission.Admin_Event_Create)]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateEventRequest request)
         {
@@ -60,6 +62,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Cập nhật sự kiện.
         /// </summary>
         [HttpPut("update/{id}")]
+        [Permission(AppPermission.Admin_Event_Update)]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateEventRequest request)
         {
             if (id != request.EventId)
@@ -99,6 +102,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Xóa sự kiện.
         /// </summary>
         [HttpDelete("delete/{id}")]
+        [Permission(AppPermission.Admin_Event_Delete)]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -121,10 +125,13 @@ namespace SCMS.WebAPI.Controllers.Admin
             }
         }
 
+      
+
         /// <summary>
         /// Duyệt sự kiện.
         /// </summary>
         [HttpPost("approve/{id}")]
+        [Permission(AppPermission.Admin_Event_Approve)]
         public async Task<IActionResult> Approve(int id)
         {
             try
@@ -159,6 +166,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Từ chối sự kiện và lưu lý do.
         /// </summary>
         [HttpPost("reject/{id}")]
+        [Permission(AppPermission.Admin_Event_Reject)]
         public async Task<IActionResult> Reject(int id, [FromBody] RejectEventRequest request)
         {
             try
@@ -193,6 +201,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Lấy chi tiết sự kiện.
         /// </summary>
         [HttpGet("detail/{id}")]
+        [Permission(AppPermission.Admin_Event_View_Detail)]
         public async Task<IActionResult> GetDetail(int id)
         {
             var result = await _eventService.GetEventDetailAsync(id);
@@ -204,6 +213,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Lấy danh sách sự kiện (có filter, phân trang).
         /// </summary>
         [HttpGet("list")]
+        [Permission(AppPermission.Admin_Event_View_List)]
         public async Task<IActionResult> GetList([FromQuery] string? keyword, [FromQuery] int? clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _eventService.GetEventListAsync(keyword, clubId, page, pageSize);
@@ -214,6 +224,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Tìm kiếm sự kiện theo từ khóa.
         /// </summary>
         [HttpGet("search")]
+        [Permission(AppPermission.Admin_Event_Search)]
         public async Task<IActionResult> Search([FromQuery] string keyword, [FromQuery] int? clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
@@ -248,6 +259,8 @@ namespace SCMS.WebAPI.Controllers.Admin
             /// <summary>
         /// Lấy danh sách sự kiện chờ duyệt (Pending).
         /// </summary>
+        /// <returns>Trả về danh sách sự kiện có trạng thái Pending, có thể lọc theo clubId nếu cần</returns>
+         [Permission(AppPermission.Admin_Event_View_Pending)]
         [HttpGet("pending")]
         public async Task<IActionResult> GetPendingEvents([FromQuery] int? clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
@@ -260,6 +273,8 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Lấy danh sách sự kiện đã duyệt (Approved).
         /// </summary>
+        /// <returns>Trả về danh sách sự kiện có trạng thái Approved, có thể lọc theo clubId nếu cần</returns>
+         [Permission(AppPermission.Admin_Event_View_Approved)]
         [HttpGet("approved")]
         public async Task<IActionResult> GetApprovedEvents([FromQuery] int? clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
@@ -273,6 +288,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Lấy danh sách sự kiện đã từ chối (Rejected).
         /// </summary>
         [HttpGet("rejected")]
+        [Permission(AppPermission.Admin_Event_View_Rejected)]
         public async Task<IActionResult> GetRejectedEvents([FromQuery] int? clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _eventService.GetEventListAsync(null, clubId, page, pageSize);

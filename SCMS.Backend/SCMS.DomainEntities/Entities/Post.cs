@@ -20,6 +20,10 @@ public partial class Post
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? Status { get; set; }
+
+    public string? RejectReason { get; set; }
+
     public virtual Club? Club { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

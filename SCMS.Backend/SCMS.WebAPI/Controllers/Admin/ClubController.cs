@@ -4,7 +4,8 @@ using SCMS.Contracts.DTOs.Responses;
 using SCMS.Contracts.Interfaces.iService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
     /// <summary>
@@ -25,6 +26,8 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Lấy danh sách tất cả các club
         /// </summary>
+        /// <returns>Danh sách club</returns>
+         [Permission(AppPermission.Admin_Club_View_List)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClubResponse>>> GetAllClubs()
         {
@@ -35,6 +38,8 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Lấy thông tin club theo Id (xem chi tiết thông tin club)
         /// </summary>
+        /// <returns>Thông tin chi tiết club</returns>
+         [Permission(AppPermission.Admin_Club_View_Detail)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ClubResponse>> GetClubById(int id)
         {
@@ -47,6 +52,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Tạo mới một club
         /// </summary>
         [HttpPost]
+        [Permission(AppPermission.Admin_Club_Create)]
         public async Task<IActionResult> CreateClub([FromBody] ClubCreateRequest request)
         {
             if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
@@ -65,6 +71,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Cập nhật thông tin club
         /// </summary>
       [HttpPut("{id}")]
+        [Permission(AppPermission.Admin_Club_Update)]
         public async Task<IActionResult> UpdateClub(int id, [FromBody] ClubUpdateRequest request)
         {
             if (id != request.ClubId) return BadRequest("Id không khớp với ClubId trong request");
@@ -82,6 +89,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Xóa club theo Id
         /// </summary>
         [HttpDelete("{id}")]
+        [Permission(AppPermission.Admin_Club_Delete)]
         public async Task<IActionResult> DeleteClub(int id)
         {
             if (!TryGetCurrentUserId(out var adminId, out var unauthorizedResult))
@@ -97,6 +105,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Bật/tắt hoạt động club
         /// </summary>
         [HttpPatch("{id}/status")]
+        [Permission(AppPermission.Admin_Club_Set_Status)]
         public async Task<IActionResult> SetClubStatus(int id, [FromQuery] bool isDisabled)
         {
             try
@@ -123,6 +132,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 
         // Lấy club theo trang (pagination), trả về danh sách club và tổng số club (để client biết có bao nhiêu trang)
         [HttpGet("paged")]
+        [Permission(AppPermission.Admin_Club_View_List)]
             public async Task<IActionResult> GetClubsPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
             {
                 var result = await _clubService.GetClubsPagedAsync(page, pageSize);
@@ -131,6 +141,8 @@ namespace SCMS.WebAPI.Controllers.Admin
               /// <summary>
         /// Tìm kiếm & phân trang club (lọc nâng cao)
         /// </summary>
+        /// <returns>Danh sách club thỏa mãn điều kiện tìm kiếm, kèm theo tổng số kết quả để client biết có bao nhiêu trang</returns>
+         [Permission(AppPermission.Admin_Club_View_List)]
         [HttpGet("search")]
         public async Task<IActionResult> SearchClubs([FromQuery] ClubSearchRequest request)
         {
@@ -142,6 +154,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// Lấy danh sách club đang chờ duyệt
         /// </summary>
         [HttpGet("pending")]
+        [Permission(AppPermission.Admin_Club_View_List)]
         public async Task<IActionResult> GetPendingClubs([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             var result = await _clubService.GetPendingClubsAsync(page, pageSize);
@@ -151,7 +164,9 @@ namespace SCMS.WebAPI.Controllers.Admin
         /// <summary>
         /// Duyệt yêu cầu tạo club
         /// </summary>
+        /// <returns>Trả về thông tin club đã được duyệt</returns>
         [HttpPost("{id}/approve")]
+        [Permission(AppPermission.Admin_Club_Approve)]
         public async Task<IActionResult> ApproveClub(int id)
         {
             try
@@ -173,11 +188,13 @@ namespace SCMS.WebAPI.Controllers.Admin
                 return BadRequest(new { message = ex.Message });
             }
         }
+        
 
         /// <summary>
         /// Từ chối yêu cầu tạo club
         /// </summary>
         [HttpPost("{id}/reject")]
+        [Permission(AppPermission.Admin_Club_Reject)]
         public async Task<IActionResult> RejectClub(int id, [FromBody] RejectClubRequest request)
         {
             try

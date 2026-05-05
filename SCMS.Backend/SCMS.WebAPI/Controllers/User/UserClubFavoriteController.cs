@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums; // using directive for AppPermission enum
 
 namespace SCMS.WebAPI.Controllers
 {
@@ -19,6 +21,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User yêu thích một câu lạc bộ
+		[Permission(AppPermission.User_Club_Favorite_Add)]
 		[HttpPost("{clubId}/favorite")]
 		public async Task<IActionResult> AddFavorite(int clubId)
 		{
@@ -51,6 +54,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User hủy yêu thích một câu lạc bộ
+		[Permission(AppPermission.User_Club_Favorite_Remove)]
 		[HttpDelete("{clubId}/favorite")]
 		public async Task<IActionResult> RemoveFavorite(int clubId)
 		{
@@ -83,6 +87,7 @@ namespace SCMS.WebAPI.Controllers
 		}
 
 		// User xem danh sách câu lạc bộ đã yêu thích (search + phân trang)
+		[Permission(AppPermission.User_Club_Favorite_View_List)]
 		[HttpGet("my-favorites")]
 		public async Task<IActionResult> GetMyFavorites([FromQuery] ClubFavoriteSearchRequest request)
 		{
@@ -101,6 +106,7 @@ namespace SCMS.WebAPI.Controllers
 
 		// Kiểm tra user đã yêu thích câu lạc bộ hay chưa  
 		// CLb nào đó có thể hiển thị trạng thái yêu thích của user để UI hiển thị đúng (ví dụ: tô đỏ icon trái tim nếu đã yêu thích)
+		[Permission(AppPermission.User_Club_Favorite_Check_Status)]
 		[HttpGet("{clubId}/status")]
 		public async Task<IActionResult> CheckFavoriteStatus(int clubId)
 		{

@@ -47,9 +47,12 @@ CREATE TABLE Event (
     EventName NVARCHAR(100) NOT NULL,             -- Tên sự kiện
     Description NVARCHAR(500),                    -- Mô tả sự kiện
     EventTime DATETIME NOT NULL,                  -- Thời gian diễn ra
+    EndDateTime DATETIME,                         -- Thời gian kết thúc sự kiện
     Location NVARCHAR(200),                       -- Địa điểm
     Status NVARCHAR(20) DEFAULT 'Upcoming',       -- Trạng thái sự kiện
     CreatedAt DATETIME DEFAULT GETDATE(),         -- Ngày tạo sự kiện
+    ParticipantCount INT DEFAULT 0,               -- Số người đã đăng ký
+    MaxParticipants INT NULL,                     -- Số lượng tối đa (null = không giới hạn)
     CONSTRAINT FK_Event_Club FOREIGN KEY (ClubId) REFERENCES Club(ClubId)
 );
 
@@ -101,6 +104,22 @@ CREATE TABLE [Like] (
     CONSTRAINT FK_Like_Post FOREIGN KEY (PostId) REFERENCES Post(PostId),
     CONSTRAINT FK_Like_Comment FOREIGN KEY (CommentId) REFERENCES Comment(CommentId)
 );
+
+-- 8.1 PostReport (Báo cáo bài viết)
+CREATE TABLE PostReport (
+    PostReportId INT IDENTITY(1,1) PRIMARY KEY,
+    PostId INT NOT NULL,
+    UserId INT NOT NULL,
+    Reason NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(1000),
+    Status NVARCHAR(20) DEFAULT 'Pending',
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_PostReport_Post FOREIGN KEY (PostId) REFERENCES Post(PostId),
+    CONSTRAINT FK_PostReport_User FOREIGN KEY (UserId) REFERENCES [User](UserId)
+);
+
+-- Chặn một user report cùng một bài viết nhiều lần
+CREATE UNIQUE INDEX UX_PostReport_User_Post ON PostReport(UserId, PostId);
 
 -- 9. Share (Chia sẻ)
 CREATE TABLE Share (

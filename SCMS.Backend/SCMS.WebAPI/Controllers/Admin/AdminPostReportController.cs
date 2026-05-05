@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
 using System.Threading.Tasks;
-
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
     [ApiController]
@@ -17,6 +18,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Lấy danh sách report (lọc, phân trang)
+        [Permission(AppPermission.Admin_Post_Report_View_List)]
         [HttpGet("list")]
         public async Task<IActionResult> GetAll([FromQuery] PostReportSearchRequest request)
         {
@@ -30,6 +32,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Lấy chi tiết một report
+        [Permission(AppPermission.Admin_Post_Report_View_Detail)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDetail(int id)
         {
@@ -45,6 +48,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Đánh dấu report đã xem
+        [Permission(AppPermission.Admin_Post_Report_Mark_Reviewed)]
         [HttpPost("{id}/mark-reviewed")]
         public async Task<IActionResult> MarkReviewed(int id)
         {
@@ -57,6 +61,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // Đánh dấu report đã xử lý
+        [Permission(AppPermission.Admin_Post_Report_Mark_Resolved)]
         [HttpPost("{id}/mark-resolved")]
         public async Task<IActionResult> MarkResolved(int id)
         {

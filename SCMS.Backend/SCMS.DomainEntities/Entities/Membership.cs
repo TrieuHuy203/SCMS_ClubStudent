@@ -20,4 +20,8 @@ public partial class Membership
     public virtual Club Club { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
+      public string? RegisterReason { get; set; }    // Lý do muốn tham gia CLB
+    public string? Skills { get; set; }            // Kỹ năng/sở thích liên quan
+    public string? Experience { get; set; }        // Kinh nghiệm tham gia CLB/hoạt động ngoại khóa
+    public string? DesiredRole { get; set; }       // Vai trò mong muốn
 }

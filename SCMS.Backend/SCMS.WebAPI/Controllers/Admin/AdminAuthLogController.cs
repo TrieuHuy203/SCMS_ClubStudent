@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
+using SCMS.DomainEntities.Enums;
 
 namespace SCMS.WebAPI.Controllers.Admin
 {
@@ -17,6 +19,7 @@ namespace SCMS.WebAPI.Controllers.Admin
         }
 
         // GET: api/admin/auth-logs
+         [Permission(AppPermission.Admin_AuthLog_View)]
         [HttpGet]
         public async Task<IActionResult> GetAuthLogs([FromQuery] AuthLogSearchRequest request)
         {

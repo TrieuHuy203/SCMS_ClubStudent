@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SCMS.Contracts.DTOs.Requests;
 using SCMS.Contracts.Interfaces.iService;
-
+using SCMS.DomainEntities.Enums; 
+using SCMS.WebAPI.Attributes; // using directive for the custom PermissionAttribute
 namespace SCMS.WebAPI.Controllers.Admin
 {
 	[ApiController]
@@ -18,8 +19,9 @@ namespace SCMS.WebAPI.Controllers.Admin
 		{
 			_postService = postService;
 		}
-
+		
 		// Admin xem tất cả bài viết (search + pagination)
+		[Permission(AppPermission.Admin_Post_View_List)]
 		[HttpGet("list")]
 		public async Task<IActionResult> GetAll([FromQuery] PostSearchRequest request)
 		{
@@ -36,6 +38,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		
 
 		// Admin xem chi tiết một bài viết
+		[Permission(AppPermission.Admin_Post_View_Detail)]
 		[HttpGet("detail/{id}")]
 		public async Task<IActionResult> GetDetail(int id)
 		{
@@ -51,6 +54,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin tạo bài viết mới
+		[Permission(AppPermission.Admin_Post_Create)]
 		[HttpPost("create")]
 		public async Task<IActionResult> Create([FromBody] CreatePostRequest request)
 		{
@@ -87,6 +91,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin cập nhật bài viết
+		[Permission(AppPermission.Admin_Post_Update)]
 		[HttpPut("update/{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdatePostRequest request)
 		{
@@ -125,6 +130,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin xoá bài viết
+		[Permission(AppPermission.Admin_Post_Delete_Any)]
 		[HttpDelete("delete/{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
@@ -157,6 +163,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin duyệt bài viết
+		[Permission(AppPermission.Admin_Post_Approve)]
 		[HttpPost("{id}/approve")]
 		public async Task<IActionResult> Approve(int id)
 		{
@@ -189,6 +196,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Admin từ chối bài viết
+		[Permission(AppPermission.Admin_Post_Reject)]
 		[HttpPost("{id}/reject")]
 		public async Task<IActionResult> Reject(int id, [FromBody] RejectPostRequest request)
 		{
@@ -225,6 +233,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		}
 
 		// Lấy danh sách bài viết chờ duyệt (Pending) của một CLB - cho nhóm trưởng hoặc admin
+		[Permission(AppPermission.Admin_Post_View_Pending_By_Club)]
 		[HttpGet("clubs/{clubId}/pending-posts")]
 		public async Task<IActionResult> GetPendingPostsByClub(int clubId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
@@ -258,6 +267,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 	/// <summary>
 		/// Lấy tất cả bài viết chờ duyệt (pending)
 		/// </summary>
+		[Permission(AppPermission.Admin_Post_View_Pending)]
 		[HttpGet("pending")]
 		public async Task<IActionResult> GetPendingPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
@@ -274,6 +284,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		/// <summary>
 		/// Lấy tất cả bài viết đã duyệt (approved)
 		/// </summary>
+		[Permission(AppPermission.Admin_Post_View_Approved)]
 		[HttpGet("approved")]
 		public async Task<IActionResult> GetApprovedPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
@@ -290,6 +301,7 @@ namespace SCMS.WebAPI.Controllers.Admin
 		/// <summary>
 		/// Lấy tất cả bài viết đã từ chối (rejected)
 		/// </summary>
+		[Permission(AppPermission.Admin_Post_View_Rejected)]
 		[HttpGet("rejected")]
 		public async Task<IActionResult> GetRejectedPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
 		{
